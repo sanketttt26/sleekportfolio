@@ -8,6 +8,7 @@ export const site = {
   location: "Pune, India",
   avatar: "/profile.jpg",
   github: "sanketttt26",
+  medium: "gxjo",
   ogDescription:
     "Personal site of Sanket Pawar — developer and designer building backend systems and exploring new tech.",
   quote: {
@@ -27,16 +28,23 @@ export const socials = [
     href: `https://github.com/${site.github}`,
     icon: "github",
   },
+  {
+    name: "Medium",
+    href: `https://medium.com/@${site.medium}`,
+    icon: "medium",
+  },
 ] as const;
 
 export const nav = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
+  { label: "Blog", href: "/blog" },
 ] as const;
 
 export const footerNav = [
   { label: "Home", href: "/" },
   { label: "Work", href: "/work" },
+  { label: "Blog", href: "/blog" },
   { label: "Gears", href: "/gears" },
   { label: "Setup", href: "/setup" },
   { label: "Books", href: "/books" },

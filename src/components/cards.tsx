@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRightIcon, CalendarBlankIcon } from "@phosphor-icons/react/ssr";
-import type { Post } from "@/config/content";
+import { ArrowRightIcon } from "@phosphor-icons/react/ssr";
+import type { MediumPost } from "@/lib/medium";
 import { cn, formatDate } from "@/lib/utils";
 
 export function SectionTitle({
@@ -24,28 +24,39 @@ export function SectionTitle({
   );
 }
 
-export function BlogItem({ post }: { post: Post }) {
+export function BlogItem({ post }: { post: MediumPost }) {
   return (
-    <article className="-mx-2 flex flex-col gap-4 rounded-xl px-2 py-5 sm:-mx-3 sm:flex-row sm:items-start sm:justify-between sm:px-3">
-      <div className="min-w-0">
-        <h3 className="text-[15px] font-semibold tracking-tight">
-          <Link href={`/blog/${post.slug}`}>
+    <article className="flex items-start gap-4 py-5">
+      <div className="min-w-0 flex-1">
+        <h3 className="text-[15px] font-semibold leading-snug tracking-tight">
+          <a href={post.href} target="_blank" rel="noreferrer">
             {post.title}
-          </Link>
+          </a>
         </h3>
-        <p className="mt-1 text-[13px] text-muted">{post.excerpt}</p>
-        <p className="mt-2 flex items-center gap-1.5 text-xs text-subtle">
-          <CalendarBlankIcon className="h-3.5 w-3.5" />
-          {formatDate(post.date)}
+        <p className="mt-1.5 text-[13px] leading-relaxed text-muted">{post.excerpt}</p>
+        <p className="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-subtle">
+          <span>{formatDate(post.date)}</span>
+          <span>·</span>
+          <span>{post.minutes} min read</span>
+          {post.tags.slice(0, 3).map((tag) => (
+            <span key={tag} className="text-accent">
+              #{tag}
+            </span>
+          ))}
         </p>
       </div>
-      <Link
-        href={`/blog/${post.slug}`}
-        className="inline-flex shrink-0 items-center gap-1 self-start text-[13px] text-muted sm:mt-1"
-      >
-        Read more
-        <ArrowRightIcon className="h-3.5 w-3.5" />
-      </Link>
+      {post.image ? (
+        <a
+          href={post.href}
+          target="_blank"
+          rel="noreferrer"
+          tabIndex={-1}
+          aria-hidden
+          className="relative hidden aspect-[4/3] w-32 shrink-0 overflow-hidden border border-border bg-card sm:block"
+        >
+          <Image src={post.image} alt="" fill sizes="128px" className="object-cover" />
+        </a>
+      ) : null}
     </article>
   );
 }

@@ -58,28 +58,6 @@ export const experience: Experience[] = [
   },
 ];
 
-export type PostBlock =
-  | { type: "p"; text: string }
-  | { type: "h2"; text: string }
-  | { type: "ul"; items: string[] }
-  | { type: "quote"; text: string };
-
-export type Post = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  tags: string[];
-  body: PostBlock[];
-};
-
-export const posts: Post[] = [];
-
-export const postTags = [
-  "All",
-  ...Array.from(new Set(posts.flatMap((post) => post.tags))).sort(),
-];
-
 export type Project = {
   slug: string;
   title: string;
@@ -219,23 +197,6 @@ export const skills = [
   },
 ];
 
-export function getPost(slug: string) {
-  return posts.find((post) => post.slug === slug);
-}
-
 export function getProject(slug: string) {
   return projects.find((project) => project.slug === slug);
-}
-
-export function relatedPosts(slug: string, count = 3) {
-  const current = getPost(slug);
-  if (!current) return posts.slice(0, count);
-  const scored = posts
-    .filter((post) => post.slug !== slug)
-    .map((post) => ({
-      post,
-      score: post.tags.filter((tag) => current.tags.includes(tag)).length,
-    }))
-    .sort((a, b) => b.score - a.score || b.post.date.localeCompare(a.post.date));
-  return scored.slice(0, count).map((entry) => entry.post);
 }

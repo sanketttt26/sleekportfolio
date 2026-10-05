@@ -1,4 +1,4 @@
-import { GithubLogoIcon, LinkedinLogoIcon } from "@phosphor-icons/react/ssr";
+import { GithubLogoIcon, LinkedinLogoIcon, MediumLogoIcon } from "@phosphor-icons/react/ssr";
 import Image, { type StaticImageData } from "next/image";
 import type { Tech } from "@/config/content";
 import dotnet from "./tech/dotnet.svg";
@@ -11,6 +11,7 @@ import typescript from "./tech/typescript.svg";
 export const socialIcons = {
   linkedin: LinkedinLogoIcon,
   github: GithubLogoIcon,
+  medium: MediumLogoIcon,
 } as const;
 
 const tech: Record<Tech, { label: string; logo: StaticImageData }> = {

@@ -10,5 +10,7 @@ export function formatDate(date: string) {
     month: "long",
     day: "numeric",
     year: "numeric",
+    // dates are stored in UTC; format them there so the server's time zone can't shift the day
+    timeZone: "UTC",
   });
 }

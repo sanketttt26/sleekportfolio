@@ -1,23 +1,18 @@
 import type { Metadata } from "next";
-import { NotePencilIcon } from "@phosphor-icons/react/ssr";
+import { ArrowUpRightIcon, NotePencilIcon } from "@phosphor-icons/react/ssr";
 import { BlogItem, EmptyState, PageHeader } from "@/components/cards";
-import { posts, postTags } from "@/config/content";
-import { cn } from "@/lib/utils";
+import { site } from "@/config/site";
+import { getMediumPosts } from "@/lib/medium";
 
 export const metadata: Metadata = {
   title: "Blog",
   description: "Notes on engineering, craft, and the quieter parts of building.",
 };
 
-export default async function BlogPage({
-  searchParams,
-}: PageProps<"/blog">) {
-  const { tag } = await searchParams;
-  const active = typeof tag === "string" ? tag : "All";
-  const filtered =
-    active === "All"
-      ? posts
-      : posts.filter((post) => post.tags.includes(active));
+const medium = `https://medium.com/@${site.medium}`;
+
+export default async function BlogPage() {
+  const posts = await getMediumPosts(site.medium);
 
   return (
     <div className="container-site pb-16">
@@ -26,41 +21,31 @@ export default async function BlogPage({
         description="Thoughts, notes, and the occasional rant about making software."
       />
       {posts.length === 0 ? (
-        <EmptyState icon={NotePencilIcon} title="No posts yet">
-          The first one is still in drafts. Follow the{" "}
-          <a href="/rss.xml" className="text-foreground underline decoration-border underline-offset-4">
-            RSS feed
-          </a>{" "}
-          to catch it when it lands.
+        <EmptyState icon={NotePencilIcon} title="Posts live on Medium">
+          They couldn&apos;t be loaded right now. Read them on{" "}
+          <a href={medium} target="_blank" rel="noreferrer" className="text-foreground underline decoration-border underline-offset-4">
+            Medium
+          </a>
+          .
         </EmptyState>
       ) : (
-        <div className="mb-6 flex flex-wrap gap-2">
-          {postTags.map((item) => {
-            const href = item === "All" ? "/blog" : `/blog?tag=${encodeURIComponent(item)}`;
-            const isActive = item === active;
-            return (
-              <a
-                key={item}
-                href={href}
-                aria-current={isActive ? "page" : undefined}
-                className={cn(
-                  "border px-3 py-1 text-xs transition",
-                  isActive
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-card text-muted",
-                )}
-              >
-                {item}
-              </a>
-            );
-          })}
-        </div>
+        <>
+          <div className="divide-y divide-border">
+            {posts.map((post) => (
+              <BlogItem key={post.href} post={post} />
+            ))}
+          </div>
+          <a
+            href={medium}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex items-center gap-1 text-[13px] text-muted"
+          >
+            more on medium
+            <ArrowUpRightIcon className="h-3.5 w-3.5" />
+          </a>
+        </>
       )}
-      <div>
-        {filtered.map((post) => (
-          <BlogItem key={post.slug} post={post} />
-        ))}
-      </div>
     </div>
   );
 }

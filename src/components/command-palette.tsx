@@ -17,7 +17,6 @@ import {
   CopySimpleIcon,
   CubeIcon,
   DesktopIcon,
-  FileTextIcon,
   FilmSlateIcon,
   HouseIcon,
   IdentificationCardIcon,
@@ -30,7 +29,7 @@ import {
 import { useTheme } from "next-themes";
 import { socialIcons } from "@/components/icons";
 import { footerNav, site, socials } from "@/config/site";
-import { posts, projects } from "@/config/content";
+import { projects } from "@/config/content";
 import { cn } from "@/lib/utils";
 
 type Item = {
@@ -109,15 +108,6 @@ function PaletteDialog({
         Icon: pageIcons[link.href] ?? HouseIcon,
       }));
 
-    const writing: Item[] = posts.map((post) => ({
-      id: `post-${post.slug}`,
-      label: post.title,
-      hint: post.excerpt,
-      href: `/blog/${post.slug}`,
-      group: "Blog",
-      Icon: FileTextIcon,
-    }));
-
     const work: Item[] = projects.map((project) => ({
       id: `project-${project.slug}`,
       label: project.title,
@@ -151,7 +141,7 @@ function PaletteDialog({
       })),
     ];
 
-    const all = [...pages, ...writing, ...work, ...actions];
+    const all = [...pages, ...work, ...actions];
     const q = query.trim().toLowerCase();
     if (!q) return all;
     return all.filter((item) =>
