@@ -6,7 +6,7 @@ import { MagnifyingGlassIcon, MoonIcon, SunIcon } from "@phosphor-icons/react/ss
 import { useTheme } from "next-themes";
 import { useSyncExternalStore } from "react";
 import { nav } from "@/config/site";
-import { cn } from "@/lib/utils";
+import { clsx } from "clsx";
 import { useCommandPalette } from "@/components/command-palette";
 
 export function Header() {
@@ -35,7 +35,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={cn(
+                className={clsx(
                   "px-1 py-1 transition-colors",
                   active
                     ? "text-foreground"

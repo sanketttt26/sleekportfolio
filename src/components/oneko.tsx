@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { clsx } from "clsx";
 // Imported (not served from /public) so the URL is content-hashed: a cached old sheet
 // can never be paired with a newer frame map.
 import sheet from "./oneko-gojo.png";
@@ -194,7 +194,7 @@ export function Oneko() {
         <>
           <span className="pointer-events-none absolute -inset-2 animate-ping rounded-full border-2 border-sky-400/70" />
           <span
-            className={cn(
+            className={clsx(
               "pointer-events-none absolute w-max max-w-[200px] rounded-lg border border-border bg-card px-2.5 py-1.5 text-[12px] leading-snug text-foreground shadow-md",
               bubble.below ? "top-full mt-2" : "bottom-full mb-2",
               {

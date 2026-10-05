@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+// Server components only: tailwind-merge is ~9 KB gz, so client components use clsx directly.
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

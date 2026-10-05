@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { site, socials } from "@/config/site";
 import { socialIcons } from "@/components/icons";

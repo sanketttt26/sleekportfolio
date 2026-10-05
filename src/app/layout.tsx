@@ -33,9 +33,6 @@ export const metadata: Metadata = {
     title: site.name,
     description: site.ogDescription,
   },
-  icons: {
-    icon: "/profile.jpg",
-  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -106,18 +106,21 @@ body::after {
   }
 }
 
-.expand {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 220ms ease;
+/* animate <details> open/close where ::details-content is supported; instant elsewhere */
+details {
+  interpolate-size: allow-keywords;
 }
 
-.expand[data-open="true"] {
-  grid-template-rows: 1fr;
+details::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 220ms ease,
+    content-visibility 220ms allow-discrete;
 }
 
-.expand > div {
-  overflow: hidden;
+details[open]::details-content {
+  block-size: auto;
 }
 
 /* ASCII theme: every border reads like a ---- line */

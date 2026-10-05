@@ -2,17 +2,14 @@
 
 import { useState } from "react";
 import { CheckIcon, CopySimpleIcon } from "@phosphor-icons/react/ssr";
-import { cn } from "@/lib/utils";
 
 export function CopyButton({
   value,
   label = "Copy",
-  className,
   iconOnly,
 }: {
   value: string;
   label?: string;
-  className?: string;
   iconOnly?: boolean;
 }) {
   const [copied, setCopied] = useState(false);
@@ -27,10 +24,7 @@ export function CopyButton({
     <button
       type="button"
       onClick={onCopy}
-      className={cn(
-        "inline-flex items-center gap-1 rounded-md text-muted",
-        className,
-      )}
+      className="inline-flex items-center gap-1 rounded-md text-muted"
       aria-label={copied ? "Copied" : label}
     >
       {copied ? <CheckIcon className="h-3.5 w-3.5" /> : <CopySimpleIcon className="h-3.5 w-3.5" />}
